@@ -10,6 +10,9 @@ GUI que baixa os instaladores que você precisa e abre as páginas oficiais dos 
 3. Clique em **Baixar** em cada item, ou em **Baixar tudo**.
 4. Os arquivos caem em uma subpasta `Downloads` ao lado do programa.
 
+O botão **Baixar Necess.zip** (rodapé) baixa a versão empacotada do próprio
+Necess, direto do repositório — útil para pegar/repassar a última versão.
+
 Portátil: não instala nada, não precisa de dependências (usa o PowerShell e o .NET
 que já vêm no Windows 10/11).
 

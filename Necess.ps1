@@ -221,8 +221,32 @@ foreach ($it in $Items) { New-Row $it $top; $top += $rowH + $gap }
 $foot = New-Object Windows.Forms.Label
 $foot.Text = "Salva em:  .\Downloads"
 $foot.Font = $fDesc; $foot.ForeColor = $cMuted; $foot.AutoSize = $true
-$foot.Location = New-Object Drawing.Point(26,($top+12))
+$foot.Location = New-Object Drawing.Point(26,($top+54))
 $form.Controls.Add($foot)
+
+# botao: baixa o proprio Necess.zip do repositorio (GitHub raw)
+$zipUrl = 'https://raw.githubusercontent.com/shazamfa90/PROJETINHO/ccr-7a55c30c-fx2v0g/Necess.zip'
+$zipBtn = New-Btn 'Baixar Necess.zip' $cCard2 $cText
+$zipBtn.Size = New-Object Drawing.Size(180,40)
+$zipBtn.Location = New-Object Drawing.Point($rowX,($top+6))
+$form.Controls.Add($zipBtn)
+$zipBusy = [pscustomobject]@{ On=$false }
+$zipBtn.Add_Click({
+  if ($zipBusy.On) { return }
+  New-Item -ItemType Directory -Force -Path $DownloadDir | Out-Null
+  $dest = Join-Path $DownloadDir 'Necess.zip'
+  $zipBusy.On = $true; $zipBtn.Enabled = $false
+  $foot.ForeColor = $cMuted; $foot.Text = 'Baixando Necess.zip...'
+  $wc = New-Object Net.WebClient
+  $wc.Headers.Add('User-Agent','Mozilla/5.0')
+  $wc.add_DownloadProgressChanged({ param($s,$e)
+    if ($e.ProgressPercentage -gt 0) { $foot.Text = "Baixando Necess.zip $($e.ProgressPercentage)%" } }.GetNewClosure())
+  $wc.add_DownloadFileCompleted({ param($s,$e)
+    $zipBusy.On = $false; $zipBtn.Enabled = $true; $wc.Dispose()
+    if ($e.Error) { $foot.ForeColor = $cErr; $foot.Text = 'Necess.zip: falhou - tentar de novo' }
+    else { $foot.ForeColor = $cOk; $foot.Text = 'Necess.zip salvo em .\Downloads' } }.GetNewClosure())
+  $wc.DownloadFileAsync([Uri]$zipUrl, $dest)
+}.GetNewClosure())
 
 $allBtn = New-Btn 'Baixar tudo' $cAccent $cAccTxt
 $allBtn.Size = New-Object Drawing.Size(160,40)
