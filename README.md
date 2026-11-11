@@ -23,6 +23,7 @@ que já vêm no Windows 10/11).
 | Visual C++ Runtimes All-in-One (Jul 2025) | abre a página (TechPowerUp) |
 | Visual C++ Redistributable x64 | baixa direto (Microsoft) |
 | DirectX End-User Runtime (dxwebsetup) | baixa direto (Microsoft) |
+| WinRAR x64 (PT-BR) | baixa direto (RARLab) |
 | Windows Update Blocker (Wub) | baixa direto (Sordum) |
 | Defender Control (dControl) | baixa direto (Sordum) — zip com senha `sordum` |
 | Valorant / Riot Client | **só abre a página oficial** para você baixar o launcher |
@@ -33,6 +34,16 @@ que já vêm no Windows 10/11).
   bloqueia o Windows Update. Os dois reduzem a segurança do sistema. São ferramentas
   públicas e legítimas da Sordum — use com consciência, no seu próprio PC.
 - O Necess apenas **baixa / abre páginas**; ele não executa nem instala nada por você.
+
+## Se um download falhar
+
+O Necess agora baixa de forma **síncrona** e, se algo der errado, mostra o erro
+exato numa caixa de mensagem — me mande esse texto que eu ajusto.
+
+Causa comum: o **Windows Defender** detecta o *Defender Control* (e às vezes o
+*Update Blocker*) como riskware e **apaga o arquivo durante o download**. Para
+esses dois, adicione a pasta `Downloads` às exclusões do Defender antes de baixar,
+ou baixe com o Defender temporariamente desligado.
 
 ## Teste rápido (sem abrir a janela)
 
