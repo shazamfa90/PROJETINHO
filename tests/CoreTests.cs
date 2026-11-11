@@ -46,6 +46,10 @@ static class CoreTests
         Check(K(Encoding.UTF8.GetBytes("﻿  \r\n<html lang=pt>")) == "html", "BOM + espacos + <html -> html");
         Check(K(B(1, 2, 3, 4, 5)) == "unknown", "lixo -> unknown");
         Check(K(new byte[0]) == "unknown", "vazio -> unknown");
+        Check(FileKinds.DetectFile(Path.Combine(Path.GetTempPath(), "necess-nao-existe-" + Guid.NewGuid().ToString("N"))) == "missing", "arquivo que sumiu -> missing");
+        Check(!FileKinds.Matches(Expect.Exe, "missing") && !FileKinds.Matches(Expect.Archive, "missing"), "missing nunca passa como arquivo valido");
+        Check(Http.FriendlyError(new FileNotFoundException("x")).StartsWith("Sumiu após baixar"), "FileNotFound -> 'Sumiu após baixar (antivírus?)'");
+        Check(Http.FriendlyError(new IOException("x")) == "Não deu para gravar", "IOException comum -> 'Não deu para gravar'");
 
         Check(FileKinds.Matches(Expect.Exe, "exe") && !FileKinds.Matches(Expect.Exe, "html"), "Expect.Exe aceita exe, recusa html");
         Check(FileKinds.Matches(Expect.Archive, "rar") && FileKinds.Matches(Expect.Archive, "zip") && FileKinds.Matches(Expect.Archive, "7z"), "Expect.Archive aceita rar/zip/7z");

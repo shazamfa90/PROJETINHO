@@ -144,6 +144,7 @@ namespace Necess
                 }
                 return "Falha na conexão";
             }
+            if (e is FileNotFoundException) return "Sumiu após baixar (antivírus?)";
             if (e is IOException || e is UnauthorizedAccessException) return "Não deu para gravar";
             return "Falhou";
         }
@@ -418,7 +419,10 @@ namespace Necess
                 if (!FileKinds.Matches(job.Def.Expect, kind))
                 {
                     Log.Write(job.Def.Name + ": conteudo '" + kind + "' (esperado " + job.Def.Expect + ")");
-                    Fail(job, kind == "html" ? "Veio uma página, não o arquivo" : "Arquivo inválido", null);
+                    // "missing": o arquivo sumiu depois de baixar - tipicamente o antivirus apagou
+                    // (o Defender costuma detectar o Defender Control / Update Blocker como riskware).
+                    Fail(job, kind == "missing" ? "Sumiu após baixar (antivírus?)"
+                            : kind == "html" ? "Veio uma página, não o arquivo" : "Arquivo inválido", null);
                     return;
                 }
 

@@ -45,6 +45,14 @@ Quando o Google Drive pede confirmação ("não consegue verificar vírus"), o N
   *Mais informações → Executar assim mesmo*. O código-fonte está em `src/` e pode ser auditado.
 - Erros técnicos vão para `Necess.log` (ao lado do `.exe`).
 
+## Se um download falhar
+
+A linha do item diz a causa e o botão vira **Tentar de novo**. Uma causa conhecida: o **Windows Defender**
+pode detectar o *Defender Control* (e às vezes o *Update Blocker*) como riskware e **apagar o arquivo
+durante o download** — nesse caso a linha mostra *Sumiu após baixar (antivírus?)*. Para esses dois,
+adicione a pasta `Downloads` às **exclusões** do Defender antes de baixar (de preferência só a pasta,
+em vez de desligar a proteção inteira).
+
 ## Compilar
 
 O código está em `src/` (C#, WinForms), os insumos de ícone em `assets/` (embutidos no `.exe`). Em
