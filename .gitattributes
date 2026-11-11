@@ -1,0 +1,7 @@
+*.exe binary
+*.zip binary
+*.png binary
+*.ico binary
+*.cs text eol=lf
+# a pagina do Drive e usada como fixture: os bytes nao podem mudar
+tests/fixtures/* -text
