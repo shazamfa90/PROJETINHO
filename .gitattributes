@@ -1,7 +1,7 @@
-# Scripts do Windows ficam SEMPRE com CRLF (cmd.exe e PowerShell 5.1) e nunca
-# sao normalizados pelo git (-text), assim o download "raw" ja vem correto.
-*.bat -text
-*.ps1 -text
+*.exe binary
 *.zip binary
 *.png binary
 *.ico binary
+*.cs text eol=lf
+# a pagina do Drive e usada como fixture: os bytes nao podem mudar
+tests/fixtures/* -text
